@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lifesynced</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex h-screen">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white shadow-md">
+            <div class="p-4">
+                <h1 class="text-2xl font-bold text-teal-600">Lifesynced</h1>
+            </div>
+            <nav class="mt-4" id="nav">
+                <!-- Navigation items will be inserted here by JavaScript -->
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-8 overflow-auto" id="main-content">
+            <!-- Content will be inserted here by JavaScript -->
+        </main>
+    </div>
+
+    <script>
+        const navItems = [
+            { name: 'Home', icon: 'home' },
+            { name: 'Biodata', icon: 'heart' },
+            { name: 'Connect and Sync', icon: 'users' },
+            { name: 'Wikihealth', icon: 'book-open' },
+            { name: 'My Schedule', icon: 'calendar' },
+            { name: 'Contribute', icon: 'gift' },
+            { name: 'My Points', icon: 'award' },
+            { name: 'Geohealth', icon: 'map-pin' },
+            { name: 'Emergency Contact', icon: 'phone-call' },
+            { name: 'Networking', icon: 'network' }
+        ];
+
+        const nav = document.getElementById('nav');
+        const mainContent = document.getElementById('main-content');
+
+        // Populate navigation
+        navItems.forEach(item => {
+            const button = document.createElement('button');
+            button.className = 'flex items-center w-full px-4 py-2 text-left text-gray-700 hover:bg-teal-50 hover:text-teal-600';
+            button.innerHTML = `
+                <i data-lucide="${item.icon}" class="w-5 h-5 mr-3"></i>
+                ${item.name}
+            `;
+            button.onclick = () => loadContent(item.name);
+            nav.appendChild(button);
+        });
+
+        // Load content based on navigation item
+        function loadContent(pageName) {
+            let content = '';
+            switch(pageName) {
+                case 'Home':
+                    content = `
+                        <h2 class="text-3xl font-semibold text-gray-800 mb-6">Welcome to Lifesynced</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${navItems.slice(1).map(item => `
+                                <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
+                                    <i data-lucide="${item.icon}" class="w-8 h-8 text-teal-500 mb-4"></i>
+                                    <h3 class="text-xl font-semibold text-gray-800 mb-2">${item.name}</h3>
+                                    <p class="text-gray-600">Access your ${item.name.toLowerCase()} information and settings.</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                case 'Biodata':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">Biodata</h2>
+                        <div class="space-y-4">
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="user" class="w-6 h-6 text-teal-500"></i>
+                                <span class="font-medium">Name:</span>
+                                <span>John Doe</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="calendar" class="w-6 h-6 text-teal-500"></i>
+                                <span class="font-medium">Age:</span>
+                                <span>35</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="droplet" class="w-6 h-6 text-teal-500"></i>
+                                <span class="font-medium">Blood Type:</span>
+                                <span>O+</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="dna" class="w-6 h-6 text-teal-500"></i>
+                                <span class="font-medium">Genetic Disorders:</span>
+                                <span>None</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="heart" class="w-6 h-6 text-teal-500"></i>
+                                <span class="font-medium">Chronic Disease:</span>
+                                <span>Hypertension</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i data-lucide="tooth" class="w-6 h-6 text-teal-500"></i>
+                                <span class="font-medium">Dental Record:</span>
+                                <span>Last checkup: 3 months ago</span>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'Connect and Sync':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">Connect and Sync</h2>
+                        <div class="space-y-4">
+                            <button class="flex items-center space-x-2 bg-teal-500 text-white px-4 py-2 rounded">
+                                <i data-lucide="bluetooth" class="w-4 h-4"></i>
+                                <span>Connect New Device</span>
+                            </button>
+                            <button class="flex items-center space-x-2 bg-red-500 text-white px-4 py-2 rounded">
+                                <i data-lucide="wifi" class="w-4 h-4"></i>
+                                <span>Disconnect Device</span>
+                            </button>
+                            <h3 class="text-xl font-semibold">Connected Devices</h3>
+                            <ul class="list-disc list-inside">
+                                <li>Apple Health</li>
+                                <li>Google Fit</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                case 'Wikihealth':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">Wikihealth</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">Communicable Diseases</h3>
+                                <ul class="list-disc list-inside">
+                                    <li>Ischaemic heart disease</li>
+                                    <li>Stroke</li>
+                                    <li>Lung cancer</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Non-communicable Diseases</h3>
+                                <ul class="list-disc list-inside">
+                                    <li>Lower respiratory disease</li>
+                                    <li>Tuberculosis</li>
+                                    <li>Measles</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Forum and Discussion</h3>
+                                <button class="bg-teal-500 text-white px-4 py-2 rounded">Join a Forum</button>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">AI Q&A</h3>
+                                <div class="border rounded p-4">
+                                    <input type="text" placeholder="Ask a medical question..." class="w-full p-2 border rounded">
+                                    <button class="mt-2 bg-teal-500 text-white px-4 py-2 rounded">Ask AI</button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'My Schedule':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">My Schedule</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">Exercise Plan</h3>
+                                <ul class="list-disc list-inside">
+                                    <li>30 minutes jogging</li>
+                                    <li>15 minutes strength training</li>
+                                    <li>10 minutes stretching</li>
+                                </ul>
+                                <button class="mt-2 bg-teal-500 text-white px-4 py-2 rounded">Set New Goal</button>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Diet Plan</h3>
+                                <p>Personalized recommendation: Low-sodium diet</p>
+                                <button class="mt-2 bg-teal-500 text-white px-4 py-2 rounded">Set New Goal</button>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Vaccination Plan</h3>
+                                <p>Next vaccination: Flu shot in 3 days</p>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Meditation Plan</h3>
+                                <button class="mr-2 bg-teal-500 text-white px-4 py-2 rounded">Meditate Now</button>
+                                <button class="bg-teal-500 text-white px-4 py-2 rounded">View Recommendations</button>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Reflection</h3>
+                                <select class="mt-2 p-2 border rounded">
+                                    <option>How are you feeling today?</option>
+                                    <option>Happy</option>
+                                    <option>Sad</option>
+                                    <option>Stressed</option>
+                                    <option>Relaxed</option>
+                                </select>
+                            </div>
+                        </div>
+                    `;
+                    break;
+                case 'Contribute':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">Contribute</h2>
+                        <div class="space-y-4">
+                            ${[1, 2, 3].map(i => `
+                                <div class="border rounded p-4">
+                                    <h3 class="text-xl font-semibold">Donation Request #${i}</h3>
+                                    <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2">
+                                        <div class="bg-teal-600 h-2.5 rounded-full" style="width: ${30 * i}%"></div>
+                                    </div>
+                                    <p class="mt-2">$${3000 * i} raised of $10000 goal</p>
+                                    <button class="mt-2 bg-teal-500 text-white px-4 py-2 rounded">Donate Now</button>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    break;
+                case 'My Points':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">My Points</h2>
+                        <div class="text-4xl font-bold text-teal-500 mb-4">1250 Points</div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Redeem Points</h3>
+                            <ul class="list-disc list-inside">
+                                <li>Health Insurance Discount - 1000 points</li>
+                                <li>Gym Membership - 500 points</li>
+                                <li>Healthy Meal Delivery - 250 points</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                case 'Geohealth':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">Geohealth Map</h2>
+                        <div class="border rounded p-4 h-64 flex items-center justify-center bg-gray-100 mb-4">
+                            [google map]
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold">Nearby Locations</h3>
+                            <ul class="list-disc list-inside">
+                                <li>City Hospital - 0.5 miles</li>
+                                <li>Green Park (Good Air Quality) - 1 mile</li>
+                                <li>24/7 Pharmacy - 1.2 miles</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                case 'Emergency Contact':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">Emergency Contacts</h2>
+                        <div class="space-y-2">
+                            <button class="w-full flex items-center justify-between bg-red-500 text-white px-4 py-2 rounded">
+                                <span>Emergency Services</span>
+                                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                            </button>
+                            <button class="w-full flex items-center justify-between bg-teal-500 text-white px-4 py-2 rounded">
+                                <span>Local Hospital</span>
+                                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                            </button>
+                            <button class="w-full flex items-center justify-between bg-teal-500 text-white px-4 py-2 rounded">
+                                <span>Primary Care Doctor</span>
+                                <i data-lucide="phone-call" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    `;
+                    break;
+                case 'Networking':
+                    content = `
+                        <h2 class="text-2xl font-bold mb-4">Networking</h2>
+                        <div class="space-y-4">
+                            <div>
+                                <h3 class="text-xl font-semibold">Family Members</h3>
+                                <ul class="list-disc list-inside">
+                                    <li>Jane Doe (Wife)</li>
+                                    <li>Jimmy Doe (Son)</li>
+                                </ul>
+                                <button class="mt-2 bg-teal-500 text-white px-4 py-2 rounded flex items-center">
+                                    <i data-lucide="plus-circle" class="w-4 h-4 mr-2"></i>
+                                    Add Family Member
+                                </button>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold">Friends</h3>
+                                <ul class="list-disc list-inside">
+                                    <li>Mike Smith</li>
+                                    <li>Sarah Johnson</li>
+                                </ul>
+                                <button class="mt-2 bg-teal-500 text-white px-4 py-2 rounded flex items-center">
+                                    <i data-lucide="plus-circle" class="w-4 h-4 mr-2"></i>
+                                    Add Friend
+                                </button>
+                            </div>
+                            <button class="bg-teal-500 text-white px-4 py-2 rounded flex items-center">
+                                <i data-lucide="message-square" class="w-4 h-4 mr-2"></i>
+                                Open Chat
+                            </button>
+                        </div>
+                    `;
+                    break;
+            }
+            mainContent.innerHTML = content;
+            lucide.createIcons();
+        }
+
+        // Load home page by default
+        loadContent('Home');
+    </script>
+</body>
+</html>
